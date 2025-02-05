@@ -1,0 +1,1 @@
+# lat_lon_wintak_plugin_example
