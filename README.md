@@ -1,5 +1,5 @@
 # Drone Latitude / Longitude WinTAK Plugin Example
-This is an example plugin for WinTAK-CIV (Windows) which listens for MAVLink messages (e.g. broadcasted from a SITL simulator running on your computer), extracts the longitude and latitude of the drone from GPS_RAW_INT messages, and displays this information in a side panel.
+This is an example plugin for WinTAK Civ which listens for MAVLink messages (e.g. broadcasted from a simulator running on your  computer), extracts the longitude and latitude of the drone from GPS_RAW_INT messages, and displays this information in a side panel.
 
 ## Requirements
 - Visual Studio 2022
@@ -7,16 +7,16 @@ This is an example plugin for WinTAK-CIV (Windows) which listens for MAVLink mes
     - Ensure you have `.NET Framework 4.8.1 development tools` installed (bottom of installation details pane)
 - WinTAK-CIV developer build (tested in V5.3)
     - On the [product page for WinTAK-CIV](tak.gov/products/wintak-civ), scroll down to the Downloadable Resources section, click on the Developer Resources tab, and download the SDK installer (e.g. `WinTAK-5.3.0.155-civ-sdk-installer-x64.exe`).
-    - This project is based on the Visual Studio template provided in the same place: `WinTAK.Templates.vsix`.
-- (Optional) Drone simulation software that can broadcast MAVLink messages in order to actually see longitude / latitude values change
+    - This project is based on the template provided in the same place: `WinTAK.Templates.vsix`.
+- (Optional) Drone simulation software that can broadcast MAVLink messages in order to actually see longitude / latitude values
     - Using WSL
         - Follow the steps on https://docs.px4.io/main/en/dev_setup/dev_env_windows_wsl.html to set up a PX4 SITL environment on Windows. 
-            - Near the end, follow the steps for **QGroundControl running on Windows**, not Ubuntu.
+            - Follow the steps for QGroundControl running on Windows, not Ubuntu.
         - In QGroundControl go to Application Settings, select the MAVLink tab, and enable MAVLink forwarding. If the port isn't 14445, change it accordingly in the code ([DockPane/DockPane.cs]()).
     - Using Docker
-        - It should be possible to use this https://github.com/JonasVautherin/px4-gazebo-headless but it has not been tested
+        - TODO
 
-## Recreating this Plugin (starting from the WinTAK-CIV Plugin Template)
+## Setup (from the WinTAK-CIV Plugin Template)
 - Open Visual Studio 2022
 - Click "Create a new project" and select "WinTAK Plugin (5.0)" on the left
 - Click next and name your project "lat_lon_wintak_plugin_example"
@@ -29,6 +29,14 @@ This is an example plugin for WinTAK-CIV (Windows) which listens for MAVLink mes
             - e.g. `C:\Program Files\WinTAK\WinTAK.exe`
         - Set "Working directory" to the directory containing WinTAK.exe 
             - e.g. `C:\Program Files\WinTAK`
+- To install WinTAK's dependencies (guide taken from [here](https://github.com/Hellikandra/WinTAK-plugintemplate?tab=readme-ov-file#project-dependencies)) 
+    - Go to Tools -> NuGet Package Manager -> Manage NuGet Packages for Solution
+    - Click the cog icon next to "Package Source" in the top right
+    - Click the plus button in the top right to add a new package source
+    - Name it WinTAK
+    - Set the path to the NuGet directory of your WinTAK install e.g. `C:\Program Files\WinTAK\NuGet`
+    - Save and close the window
+    - Back in the "Manage Packages for Solution" screen in Visual Studio, select "WinTAK" as the package source and install the "WinTAK-Dependencies" package 
 - Open Views/View.xaml and insert the following code between the Grid tags
 ```xml
 <StackPanel>
